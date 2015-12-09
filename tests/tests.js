@@ -23,6 +23,7 @@ module("RRule", {
 
 });
 
+test_tz = 'America/Toronto';
 
 var texts = [
     ['Every week on Tuesday', 'FREQ=WEEKLY;BYDAY=TU'],
@@ -77,14 +78,14 @@ testRecurring(
     'missing Feb 28 https://github.com/jkbrzt/rrule/issues/21',
     new RRule({
       freq: RRule.MONTHLY,
-      dtstart: new Date(2013, 0, 1),
+      dtstart: new TimeZoneDate([2013, 0, 1], test_tz),
       count: 3,
       bymonthday: [28]
     }),
     [
-        new Date(2013, 0, 28),
-        new Date(2013, 1, 28),
-        new Date(2013, 2, 28)
+        new TimeZoneDate([2013, 0, 28], test_tz),
+        new TimeZoneDate([2013, 1, 28], test_tz),
+        new TimeZoneDate([2013, 2, 28], test_tz),
     ]);
 
 
@@ -2264,23 +2265,23 @@ testRecurring('testMaxYear', new RRule({freq: RRule.YEARLY,
 testRecurring('testSubsecondStartYearly' , new RRule({
     freq: RRule.YEARLY,
     count:1,
-    dtstart:new Date(1420063200001)
+    dtstart:new TimeZoneDate([2000, 0, 1], test_tz)
     }),
 
-    [new Date(1420063200001)]);
+    [new TimeZoneDate([2000, 0, 1], test_tz)]);
 
 testRecurring('testSubsecondStartMonthlyByMonthDay' , new RRule({
     
     freq: RRule.MONTHLY,
     count: 1,
     bysetpos: [-1,1] ,   
-    dtstart:new Date(1356991200001)
+    dtstart:new TimeZoneDate([2000, 0, 1], test_tz)
     }),
-    [new Date(1356991200001)]);
+    [new TimeZoneDate([2000, 0, 1], test_tz)]);
 
 test('testAfterBefore', function(){
     "YEARLY,MONTHLY,DAILY,HOURLY,MINUTELY,SECONDLY".split(',').forEach( function (freq_str){
-        var date= new Date(1356991200001);
+        var date= new TimeZoneDate([2000, 0, 1], test_tz);
         var rr= new RRule({
                 freq:RRule[freq_str],
                 dtstart:date
