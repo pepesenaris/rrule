@@ -1,6 +1,8 @@
 rrule.js
 ========
 
+THIS SHOULD BE USED ONLY FOR LEGACY FILES
+
 **Library for working with recurrence rules for calendar dates.**
 
 rrule.js supports recurrence rules as defined in the [iCalendar
